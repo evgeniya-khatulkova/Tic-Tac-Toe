@@ -26,12 +26,13 @@ p first_player.result
 grid_array = [1,2,3,4,5,6,7,8,9]
 
 grid_array.each_with_index do |number, index|
-  if number % 3 == 0 && number != 9
+  index_new = index + 1
+  if index_new % 3 == 0 && index_new != 9
     print " #{number}"
     puts
     print "---+---+---"
     puts
-  elsif number == 9
+  elsif index_new == 9
     print " #{number}"
   else
     print " #{number} |"
