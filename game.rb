@@ -3,12 +3,21 @@ WINNING_COMBINATION = [[1,2,3], [1,4,7], [7,8,9], [4,5,6], [2,5,8], [1,5,9], [3,
 class Player
 
   attr_reader :name, :result
+  attr_accessor :turn
 
   def initialize(name)
     @name = name
+    @turn = false
     @result = []
   end
 
+  def your_turn
+    @turn = true
+  end
+
+  def wait_for_turn
+    @turn = false
+  end
 end
 
 puts "Let's play Tic Tac Toe. This game requires two players. Please enter name of the first player."
@@ -20,7 +29,7 @@ first_player = Player.new(first_players_name)
 second_player = Player.new(second_players_name)
 
 
-puts "Hello, #{first_player.name} and #{second_player.name}."
+puts "#{first_player.name} is playing with X and #{second_player.name} is playing with O. "
 
 p first_player.result
 grid_array = [1,2,3,4,5,6,7,8,9]
@@ -38,3 +47,16 @@ grid_array.each_with_index do |number, index|
     print " #{number} |"
   end
 end
+
+puts "Choose place"
+choise = gets.chomp.to_i
+if grid_array.include?(choise)
+  first_player.result << choise
+  grid_array[choise - 1] = "X"
+else
+  puts "Wrong"
+end
+
+
+
+
