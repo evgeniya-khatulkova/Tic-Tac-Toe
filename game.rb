@@ -67,6 +67,8 @@ while first_player.win? != true
   else
     puts "Choose another position"
   end
+  p first_player.result
+  p WINNING_COMBINATION.include?(first_player.result.sort)
 
   creating_grid(grid_array)
   puts
@@ -74,7 +76,7 @@ while first_player.win? != true
   puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
   choise = gets.chomp.to_i
   if grid_array.include?(choise)
-    first_player.result << choise
+    second_player.result << choise
     grid_array[choise - 1] = "O"
   else
     puts "Choose another position"
