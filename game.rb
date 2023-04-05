@@ -60,13 +60,13 @@ creating_grid(grid_array)
 while second_player.winner != true
   puts
   puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
-  choise = gets.chomp.to_i
-  if grid_array.include?(choise)
-    first_player.result << choise
-    grid_array[choise - 1] = "X"
-  else
-    puts "Choose another position"
-  end
+    choise = gets.chomp.to_i
+  until grid_array.include?(choise)
+          puts "Choose another position"
+          choise = gets.chomp.to_i
+    end
+      first_player.result << choise
+      grid_array[choise - 1] = "X"
 if WINNING_COMBINATION.include?(first_player.result.sort)
   first_player.you_won!
   super_winner = second_player
@@ -79,21 +79,19 @@ end
 
   puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
   choise = gets.chomp.to_i
-  if grid_array.include?(choise)
-    second_player.result << choise
-    grid_array[choise - 1] = "O"
-  else
-    puts "Choose another position"
-  end
+  until grid_array.include?(choise)
+          puts "Choose another position"
+          choise = gets.chomp.to_i
+    end
+      second_player.result << choise
+      grid_array[choise - 1] = "O"
    if WINNING_COMBINATION.include?(second_player.result.sort)
       second_player.you_won!
       super_winner = second_player
    end
-
 
   creating_grid(grid_array)
   puts
 end
 
 puts "Congrats #{super_winner.name}. You won the game"
-
