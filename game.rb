@@ -7,16 +7,16 @@ class Player
 
   def initialize(name)
     @name = name
-    @turn = false
+    @winner = false
     @result = []
   end
 
-  def your_turn
-    @turn = true
+  def win?
+    @winner
   end
 
-  def wait_for_turn
-    @turn = false
+  def you_won!
+    @winner = true
   end
 end
 
@@ -34,29 +34,42 @@ puts "#{first_player.name} is playing with X and #{second_player.name} is playin
 p first_player.result
 grid_array = [1,2,3,4,5,6,7,8,9]
 
-grid_array.each_with_index do |number, index|
-  index_new = index + 1
-  if index_new % 3 == 0 && index_new != 9
-    print " #{number}"
-    puts
-    print "---+---+---"
-    puts
-  elsif index_new == 9
-    print " #{number}"
-  else
-    print " #{number} |"
+def creating_grid(grid_array)
+  grid_array.each_with_index do |number, index|
+    index_new = index + 1
+    if index_new % 3 == 0 && index_new != 9
+      print " #{number}"
+      puts
+      print "---+---+---"
+      puts
+    elsif index_new == 9
+      print " #{number}"
+    else
+      print " #{number} |"
+    end
   end
 end
 
-puts "Choose place"
+
+puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
 choise = gets.chomp.to_i
 if grid_array.include?(choise)
   first_player.result << choise
   grid_array[choise - 1] = "X"
 else
-  puts "Wrong"
+  puts "Choose another position"
 end
 
+creating_grid(grid_array)
+puts
 
+puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
+choise = gets.chomp.to_i
+if grid_array.include?(choise)
+  first_player.result << choise
+  grid_array[choise - 1] = "O"
+else
+  puts "Choose another position"
+end
 
-
+creating_grid(grid_array)
