@@ -20,20 +20,11 @@ class Player
   end
 end
 
-puts "Let's play Tic Tac Toe. This game requires two players. Please enter name of the first player."
-first_players_name = gets.chomp
-puts "Thank you. Now, please, enter name of the second player. "
-second_players_name = gets.chomp
-
-first_player = Player.new(first_players_name)
-second_player = Player.new(second_players_name)
-
-
-puts "#{first_player.name} is playing with X and #{second_player.name} is playing with O. "
 
 grid_array = [1,2,3,4,5,6,7,8,9]
 
 def creating_grid(grid_array)
+  puts
   grid_array.each_with_index do |number, index|
     index_new = index + 1
     if index_new % 3 == 0 && index_new != 9
@@ -47,10 +38,27 @@ def creating_grid(grid_array)
       print " #{number} |"
     end
   end
+  puts
 end
 
+puts "  Let's play Tic Tac Toe. This game requires two players. Please enter name of the first player."
+first_players_name = gets.chomp
+puts
+puts "Thank you. Now, please, enter name of the second player. "
+second_players_name = gets.chomp
+puts
+
+first_player = Player.new(first_players_name)
+second_player = Player.new(second_players_name)
+
+
+puts "#{first_player.name} is playing with X and #{second_player.name} is playing with O. "
+puts
+
+creating_grid(grid_array)
 
 while first_player.win? != true
+  puts
   puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
   choise = gets.chomp.to_i
   if grid_array.include?(choise)
@@ -77,5 +85,3 @@ while first_player.win? != true
   puts
 
 end
-
-creating_grid(grid_array)
