@@ -3,7 +3,7 @@ WINNING_COMBINATION = [[1,2,3], [1,4,7], [7,8,9], [4,5,6], [2,5,8], [1,5,9], [3,
 class Player
 
   attr_reader :name, :result
-  attr_accessor :turn
+  attr_accessor :winner
 
   def initialize(name)
     @name = name
@@ -57,7 +57,7 @@ puts
 
 creating_grid(grid_array)
 
-while first_player.win? != true
+while second_player.winner != true
   puts
   puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
   choise = gets.chomp.to_i
@@ -67,11 +67,12 @@ while first_player.win? != true
   else
     puts "Choose another position"
   end
-  p first_player.result
-  p WINNING_COMBINATION.include?(first_player.result.sort)
+first_player.you_won! if WINNING_COMBINATION.include?(first_player.result.sort)
 
   creating_grid(grid_array)
   puts
+
+  break if first_player.winner
 
   puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
   choise = gets.chomp.to_i
@@ -81,9 +82,9 @@ while first_player.win? != true
   else
     puts "Choose another position"
   end
+    second_player.you_won! if WINNING_COMBINATION.include?(second_player.result.sort)
 
 
   creating_grid(grid_array)
   puts
-
 end
