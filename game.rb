@@ -67,7 +67,10 @@ while second_player.winner != true
   else
     puts "Choose another position"
   end
-first_player.you_won! if WINNING_COMBINATION.include?(first_player.result.sort)
+if WINNING_COMBINATION.include?(first_player.result.sort)
+  first_player.you_won!
+  super_winner = second_player
+end
 
   creating_grid(grid_array)
   puts
@@ -82,9 +85,15 @@ first_player.you_won! if WINNING_COMBINATION.include?(first_player.result.sort)
   else
     puts "Choose another position"
   end
-    second_player.you_won! if WINNING_COMBINATION.include?(second_player.result.sort)
+   if WINNING_COMBINATION.include?(second_player.result.sort)
+      second_player.you_won!
+      super_winner = second_player
+   end
 
 
   creating_grid(grid_array)
   puts
 end
+
+puts "Congrats #{super_winner.name}. You won the game"
+
