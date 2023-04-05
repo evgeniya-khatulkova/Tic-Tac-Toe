@@ -31,7 +31,6 @@ second_player = Player.new(second_players_name)
 
 puts "#{first_player.name} is playing with X and #{second_player.name} is playing with O. "
 
-p first_player.result
 grid_array = [1,2,3,4,5,6,7,8,9]
 
 def creating_grid(grid_array)
@@ -51,25 +50,32 @@ def creating_grid(grid_array)
 end
 
 
-puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
-choise = gets.chomp.to_i
-if grid_array.include?(choise)
-  first_player.result << choise
-  grid_array[choise - 1] = "X"
-else
-  puts "Choose another position"
-end
+while first_player.win? != true
+  puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
+  choise = gets.chomp.to_i
+  if grid_array.include?(choise)
+    first_player.result << choise
+    grid_array[choise - 1] = "X"
+  else
+    puts "Choose another position"
+  end
 
-creating_grid(grid_array)
-puts
+  creating_grid(grid_array)
+  puts
 
-puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
-choise = gets.chomp.to_i
-if grid_array.include?(choise)
-  first_player.result << choise
-  grid_array[choise - 1] = "O"
-else
-  puts "Choose another position"
+  puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
+  choise = gets.chomp.to_i
+  if grid_array.include?(choise)
+    first_player.result << choise
+    grid_array[choise - 1] = "O"
+  else
+    puts "Choose another position"
+  end
+
+
+  creating_grid(grid_array)
+  puts
+
 end
 
 creating_grid(grid_array)
