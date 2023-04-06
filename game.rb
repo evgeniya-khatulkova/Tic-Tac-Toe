@@ -26,13 +26,14 @@ def creating_grid(grid_array)
   puts
 end
 
-# def draw(grid_array)
-#   if grid_array.none? { |element| (1..9).include?(element) }
-#     creating_grid(grid_array)
-#     puts "It's a draw... "
-#     end_game
-#   end
-# end
+def draw(grid_array)
+  if grid_array.none? { |element| (1..9).include?(element) }
+    creating_grid(grid_array)
+    puts
+    puts "It's a draw... "
+  end_game
+  end
+end
 
 def end_game
   puts 'Do you want to play again. y/n?'
@@ -70,7 +71,7 @@ def game(grid_array)
     end
     first_player.result << choise
     grid_array[choise - 1] = 'X'
-    # draw(grid_array)
+    break if  draw(grid_array)
     if WINNING_COMBINATION.any? do |element|
       element.all? { |letter| first_player.result.include?(letter) }
     end
@@ -91,6 +92,7 @@ def game(grid_array)
     end
     second_player.result << choise
     grid_array[choise - 1] = 'O'
+    break if draw(grid_array)
     if WINNING_COMBINATION.any? do |element|
       element.all? { |letter| second_player.result.include?(letter) }
     end
@@ -102,7 +104,8 @@ def game(grid_array)
     puts
   end
 
-  puts "Congrats #{super_winner.name}. You won the game"
+  puts "Congrats #{super_winner.name}. You won the game" if super_winner != nil
+
 end
 
 game(grid_array)
