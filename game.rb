@@ -62,7 +62,9 @@ while second_player.winner != true
   end
   first_player.result << choise
   grid_array[choise - 1] = 'X'
-  if WINNING_COMBINATION.include?(first_player.result.sort)
+  if WINNING_COMBINATION.any? do |element|
+    element.all? {|letter| first_player.result.include?(letter) }
+  end
     first_player.you_won!
     super_winner = second_player
   end
