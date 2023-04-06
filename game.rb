@@ -1,23 +1,6 @@
+require_relative 'player'
+
 WINNING_COMBINATION = [[1, 2, 3], [1, 4, 7], [7, 8, 9], [4, 5, 6], [2, 5, 8], [1, 5, 9], [3, 5, 7]]
-
-class Player
-  attr_reader :name, :result
-  attr_accessor :winner
-
-  def initialize(name)
-    @name = name
-    @winner = false
-    @result = []
-  end
-
-  def win?
-    @winner
-  end
-
-  def you_won!
-    @winner = true
-  end
-end
 
 grid_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -43,6 +26,17 @@ def creating_grid(grid_array)
   puts
 end
 
+def end_game
+  puts 'Do you want to play again. y/n?'
+  play_again = gets.chomp.downcase
+  until play_again.downcase == 'y' || play_again.downcase == 'n'
+    puts 'y stands for yes, n for now'
+    play_again = gets.chomp
+  end
+  play_again
+end
+
+def game(grid_array)
 puts "  Let's play Tic Tac Toe. This game requires two players. Please enter name of the first player."
 first_players_name = gets.chomp
 puts
@@ -96,11 +90,8 @@ while second_player.winner != true
 end
 
 puts "Congrats #{super_winner.name}. You won the game"
-
-puts 'Do you want to play again. y/n?'
-play_again = gets.chomp.downcase
-until play_again.downcase == 'y' || play_again.downcase == 'n'
-  puts 'y stands for yes, n for now'
-  play_again = gets.chomp
 end
-creating_grid(grid_array) if play_again == 'y'
+
+game(grid_array)
+grid_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+game(grid_array) if end_game == 'y'
