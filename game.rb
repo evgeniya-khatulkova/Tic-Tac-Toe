@@ -46,6 +46,7 @@ def end_game
     grid_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     game(grid_array)
   end
+  exit
 end
 
 def game(grid_array)
@@ -64,7 +65,7 @@ def game(grid_array)
 
   creating_grid(grid_array)
 
-  while second_player.winner != true
+  until second_player.winner == true
     puts
     puts "#{first_player.name}, it is your turn to play, choose the position on the grid"
     choise = gets.chomp.to_i
@@ -74,7 +75,6 @@ def game(grid_array)
     end
     first_player.result << choise
     grid_array[choise - 1] = 'X'
-
 
     if WINNING_COMBINATION.any? do |element|
       element.all? { |letter| first_player.result.include?(letter) }
@@ -87,8 +87,7 @@ def game(grid_array)
     puts
 
     end_game if first_player.winner
-
-  end_game if draw(grid_array)
+    end_game if draw(grid_array)
 
     puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
     choise = gets.chomp.to_i
@@ -118,8 +117,3 @@ def game(grid_array)
 end
 
 game(grid_array)
-
-if end_game == 'y'
-  grid_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  game(grid_array)
-end
