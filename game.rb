@@ -15,7 +15,7 @@ def creating_grid(grid_array)
   puts
   grid_array.each_with_index do |number, index|
     index_new = index + 1
-    if index_new % 3 == 0 && index_new != 9
+    if (index_new % 3).zero? && index_new != 9
       grid_builder(number)
     elsif index_new == 9
       print " #{number}"
@@ -31,7 +31,7 @@ def draw(grid_array)
     creating_grid(grid_array)
     puts
     puts "It's a draw... "
-  end_game
+    end_game
   end
 end
 
@@ -42,7 +42,10 @@ def end_game
     puts 'y stands for yes, n for now'
     play_again = gets.chomp
   end
-  play_again
+  if play_again == 'y'
+    grid_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    game(grid_array)
+  end
 end
 
 def game(grid_array)
@@ -71,7 +74,8 @@ def game(grid_array)
     end
     first_player.result << choise
     grid_array[choise - 1] = 'X'
-    break if  draw(grid_array)
+
+
     if WINNING_COMBINATION.any? do |element|
       element.all? { |letter| first_player.result.include?(letter) }
     end
@@ -82,7 +86,9 @@ def game(grid_array)
     creating_grid(grid_array)
     puts
 
-    break if first_player.winner
+    end_game if first_player.winner
+
+  end_game if draw(grid_array)
 
     puts "#{second_player.name}, it is your turn to play, choose the position on the grid"
     choise = gets.chomp.to_i
@@ -92,24 +98,28 @@ def game(grid_array)
     end
     second_player.result << choise
     grid_array[choise - 1] = 'O'
-    break if draw(grid_array)
+
     if WINNING_COMBINATION.any? do |element|
       element.all? { |letter| second_player.result.include?(letter) }
     end
+
       second_player.you_won!
       super_winner = second_player
     end
+
+    end_game if draw(grid_array)
 
     creating_grid(grid_array)
     puts
   end
 
-  puts "Congrats #{super_winner.name}. You won the game" if super_winner != nil
-
+  puts "Congrats #{super_winner.name}. You won the game" unless super_winner.nil?
+  end_game
 end
 
 game(grid_array)
-while end_game == 'y'
+
+if end_game == 'y'
   grid_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   game(grid_array)
 end
